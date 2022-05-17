@@ -2,30 +2,38 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
-const App = ( props ) => {
+// const App = ( props ) => {
 
-  const [ count, setCount ] = useState(props.count);
-  const [ text, setText ] = useState('');
+//   const [ count, setCount ] = useState(props.count);
+//   const [ text, setText ] = useState('');
 
+//   return (
+//     <div>
+//       <p>The current { text || 'count' } is { count }</p>
+//       <button onClick={ () => setCount( count - 1) }> -1 </button>
+//       <button onClick={ () => setCount( props.count ) }> Reset </button>
+//       <button onClick={ () => setCount( count + 1) }> +1 </button>
+//       <input type="text" value={ text } onChange={ ( e ) => { setText( e.target.value ) } } />
+//     </div>
+// );
+// }
+
+// App.defaultProps = {
+//   count: 0
+// }
+
+const NoteApp = () => {
   return (
     <div>
-      <p>The current { text || 'count' } is { count }</p>
-      <button onClick={ () => setCount( count - 1) }> -1 </button>
-      <button onClick={ () => setCount( props.count ) }> Reset </button>
-      <button onClick={ () => setCount( count + 1) }> +1 </button>
-      <input type="text" value={ text } onChange={ ( e ) => { setText( e.target.value ) } } />
+      <h1>Notes</h1>
     </div>
-);
-}
-
-App.defaultProps = {
-  count: 0
+  )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App count={-12}/>
+    <NoteApp/>
   </React.StrictMode>
 );
 
