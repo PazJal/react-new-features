@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
+
+const App = ( props ) => {
+
+  const [ count, setCount ] = useState(props.count);
+
+  return (
+    <div>
+      <p>The current count is { count }</p>
+      <button onClick={ () => setCount( count - 1) }> -1 </button>
+      <button onClick={ () => setCount( props.count ) }> Reset </button>
+      <button onClick={ () => setCount( count + 1) }> +1 </button>
+    </div>
+);
+}
+
+App.defaultProps = {
+  count: 0
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div>Hello new app</div>
+    <App count={-12}/>
   </React.StrictMode>
 );
 
