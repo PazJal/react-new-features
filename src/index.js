@@ -56,7 +56,12 @@ const NoteApp = () => {
     setTitle('');
     setNoteContent('');
   } 
-  
+  /**
+   * removes a note from the list. updates component state. 
+   * 
+   * @param {string} title title of the note to remove from the list.
+   *  
+   */
   const removeNote = (title) => {
     setNotes(notes.filter((note) => (note.title !== title)))
   }
