@@ -22,10 +22,60 @@ import reportWebVitals from './reportWebVitals';
 //   count: 0
 // }
 
+/**
+ * 
+ * @returns a note component to render.
+ * 
+ * @property notes keeps the notes list.
+ * @property title saves the currently typed title in the UI.
+ * @property noteContent saves the currently typed content in the UI.
+ * 
+ */
+
 const NoteApp = () => {
+
+  const [ notes, setNotes ] = useState( [] );
+  const [ title, setTitle ] = useState('');
+  const [ noteContent, setNoteContent ] = useState('');
+
+
+  /**
+   * 
+   * @param {} e event received from form submission. 
+   * prevents default from submission. 
+   * adds a new note to current state.
+   * udpates the UI to represent state. 
+   * 
+   */
+  const addNote = ( e ) => {
+    e.preventDefault();
+    setNotes([...notes, { 
+      title,
+      noteContent
+    }])
+    setTitle('');
+    setNoteContent('');
+  } 
+  
+  const removeNote = (title) => {
+    setNotes(notes.filter((note) => (note.title !== title)))
+  }
+
+
   return (
     <div>
       <h1>Notes</h1>
+      { notes.map((note) => (
+        <div key={note.title}>
+          <h3>{note.title}</h3>
+          <button onClick={() => removeNote(note.title)}>x</button>
+        </div>
+      ))}
+      <p>Add Note</p>
+      <form onSubmit={addNote}>
+        <input type="text" value={ title } onChange={ (e) => { setTitle( e.target.value ) } } />
+        <button>add note</button>
+      </form>
     </div>
   )
 }
