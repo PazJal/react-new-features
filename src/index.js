@@ -52,7 +52,7 @@ const NoteApp = () => {
 
   useEffect(() => {
     window.localStorage.setItem('Notes', JSON.stringify(notes));
-  });
+  }, [notes]);
   /**
    * 
    * @param {} e event received from form submission. 
@@ -105,7 +105,7 @@ const NoteApp = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+    <NoteApp/>
   </React.StrictMode>
 );
 
