@@ -8,8 +8,12 @@ const App = ( props ) => {
   const [ text, setText ] = useState('');
 
   useEffect(() => {
+    console.log("This should only run once as component mounts");
+  },[]);
+
+  useEffect(() => {
     document.title = count;
-  });
+  }, [count]);
 
   return (
     <div>
@@ -101,7 +105,7 @@ const NoteApp = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <NoteApp/>
+    <App/>
   </React.StrictMode>
 );
 
