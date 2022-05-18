@@ -44,12 +44,17 @@ App.defaultProps = {
 
 const NoteApp = () => {
 
-  const storageNotes = window.localStorage.getItem('Notes');
-  const [ notes, setNotes ] = useState( (storageNotes ? (JSON.parse(storageNotes)) : []) );
+  const [ notes, setNotes ] = useState([]);
   const [ title, setTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
-
-
+  
+  useEffect(() => {
+    const storageNotes = window.localStorage.getItem('Notes');
+    if(storageNotes){
+      setNotes(JSON.parse(storageNotes));
+    } 
+  }, []); 
+  
   useEffect(() => {
     window.localStorage.setItem('Notes', JSON.stringify(notes));
   }, [notes]);
