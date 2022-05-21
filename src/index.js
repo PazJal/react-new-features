@@ -2,33 +2,6 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
-const App = ( props ) => {
-
-  const [ count, setCount ] = useState(props.count);
-  const [ text, setText ] = useState('');
-
-  useEffect(() => {
-    console.log("This should only run once as component mounts");
-  },[]);
-
-  useEffect(() => {
-    document.title = count;
-  }, [count]);
-
-  return (
-    <div>
-      <p>The current { text || 'count' } is { count }</p>
-      <button onClick={ () => setCount( count - 1) }> -1 </button>
-      <button onClick={ () => setCount( props.count ) }> Reset </button>
-      <button onClick={ () => setCount( count + 1) }> +1 </button>
-      <input type="text" value={ text } onChange={ ( e ) => { setText( e.target.value ) } } />
-    </div>
-);
-}
-
-App.defaultProps = {
-  count: 0
-}
 
 /**
  * 
@@ -109,9 +82,7 @@ const NoteApp = () => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <NoteApp/>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
