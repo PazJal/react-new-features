@@ -3,10 +3,19 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
 
+const ADD_NOTE = 'ADD_NOTE';
+const REMOVE_NOTE = 'REMOVE_NOTE';
+const POPULATE_NOTES = 'POPULATE_NOTES'
+
 const notesReducer = (state, action) => {
+  console.log('state: ', state);
   switch (action.type) {
-    case 'POPULATE_NOTES':
+    case POPULATE_NOTES:
       return action.notes;
+    case ADD_NOTE:
+      return [...state, action.note]
+    case REMOVE_NOTE:
+      return [...state].filter((note) => (note.title !== action.title));
     default: 
       return state;
   }
@@ -30,8 +39,6 @@ const NoteApp = () => {
   const [ notes , notesDispatch ] = useReducer(notesReducer, []);
   const [ title, setTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
-  //TODO: remove console log
-  console.log(notes);
   
   useEffect(() => {
     const storageNotes = window.localStorage.getItem('Notes');
@@ -54,6 +61,7 @@ const NoteApp = () => {
    */
   const addNote = ( e ) => {
     e.preventDefault();
+    notesDispatch({type: ADD_NOTE, note:{title, content: noteContent}});
     // setNotes([...notes, { 
     //   title,
     //   content: noteContent
@@ -68,6 +76,7 @@ const NoteApp = () => {
    *  
    */
   const removeNote = (title) => {
+    notesDispatch({type:REMOVE_NOTE, title});
     // setNotes(notes.filter((note) => (note.title !== title)))
   }
 
