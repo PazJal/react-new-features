@@ -1,7 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
+
+const notesReducer = (state, action) => {
+  switch (action.type) {
+    case 'POPULATE_NOTES':
+      return action.notes;
+    default: 
+      return state;
+  }
+}
 
 /**
  * 
@@ -17,14 +26,18 @@ import reportWebVitals from './reportWebVitals';
 
 const NoteApp = () => {
 
-  const [ notes, setNotes ] = useState([]);
+  // const [ notes, setNotes ] = useState([]);
+  const [ notes , notesDispatch ] = useReducer(notesReducer, []);
   const [ title, setTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
+  //TODO: remove console log
+  console.log(notes);
   
   useEffect(() => {
     const storageNotes = window.localStorage.getItem('Notes');
     if(storageNotes){
-      setNotes(JSON.parse(storageNotes));
+      // setNotes(JSON.parse(storageNotes));
+      notesDispatch({ type: 'POPULATE_NOTES' , notes: JSON.parse(storageNotes)})
     } 
   }, []); 
   
@@ -41,10 +54,10 @@ const NoteApp = () => {
    */
   const addNote = ( e ) => {
     e.preventDefault();
-    setNotes([...notes, { 
-      title,
-      content: noteContent
-    }])
+    // setNotes([...notes, { 
+    //   title,
+    //   content: noteContent
+    // }])
     setTitle('');
     setNoteContent('');
   } 
@@ -55,7 +68,7 @@ const NoteApp = () => {
    *  
    */
   const removeNote = (title) => {
-    setNotes(notes.filter((note) => (note.title !== title)))
+    // setNotes(notes.filter((note) => (note.title !== title)))
   }
 
   return (
