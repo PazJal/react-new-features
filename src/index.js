@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 
 import {notesReducer, ADD_NOTE, REMOVE_NOTE, POPULATE_NOTES} from './reducers/notes'
@@ -65,17 +66,25 @@ const NoteApp = () => {
   }
 
   return (
-    <div>
-      <h1  className='text-3xl font-bold underline'>Notes</h1>
+    <div className='p-5 max-w-xl space-y-3'>
+      <h1  className='text-3xl font-bold underline text-blue-600'>Notes</h1>
       { notes.map((note) => (
         <Note key={note.title} note={note} removeNote={removeNote}/>
       ))}
       <p>Add Note</p>
       <form onSubmit={addNote}>
-        <div>
-          <input type="text" value={ title } onChange={ (e) => { setTitle( e.target.value ) } } />
-          <textarea name="" id="" cols="30" rows="10" value={noteContent} onChange={(e) => {setNoteContent(e.target.value)}}></textarea>
-          <button>add note</button>
+        <div className='flex-col flex max-w-xl space-y-3'>
+          <input type="text" value={ title } onChange={ (e) => { setTitle( e.target.value ) } } 
+            className='border-2 border-blue-300 rounded-xl p-2'
+          />
+          <textarea name="" id="" cols="30" rows="10" value={noteContent} onChange={(e) => {setNoteContent(e.target.value)}}
+            className='border-2 border-blue-300 rounded-xl p-2'
+          ></textarea>
+          <button className='
+            rounded-full border-2 p-2  border-blue-300'
+          >
+            add note
+          </button>
         </div>
       </form>
     </div>
@@ -92,10 +101,14 @@ const Note = ({note, removeNote}) => {
   }, []);
 
   return (
-        <div>
-          <h3>{note.title}</h3>
+        <div className='rounded border-2 border-blue-500 p-2'>
+          <h3 className='text-blue-300'>{note.title}</h3>
           <p>{note.content}</p>
-          <button onClick={() => removeNote(note.title)}>x</button>
+          <button onClick={() => removeNote(note.title)}
+          className='rounded-full border-2 border-blue-300 p-2 '
+          >
+            x
+          </button>
         </div>
   )
 }
