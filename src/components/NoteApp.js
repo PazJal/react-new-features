@@ -1,7 +1,8 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useReducer} from 'react';
 
-import { notesReducer, ADD_NOTE, REMOVE_NOTE, POPULATE_NOTES } from '../reducers/notes';
+import { notesReducer, REMOVE_NOTE, POPULATE_NOTES } from '../reducers/notes';
 import NoteList from './NoteList';
+import AddNoteForm from './AddNoteForm';
 
 /**
  * 
@@ -19,8 +20,6 @@ import NoteList from './NoteList';
 
   // const [ notes, setNotes ] = useState([]);
   const [ notes , notesDispatch ] = useReducer(notesReducer, []);
-  const [ title, setTitle ] = useState('');
-  const [ noteContent, setNoteContent ] = useState('');
   
   useEffect(() => {
     const storageNotes = window.localStorage.getItem('Notes');
@@ -33,24 +32,7 @@ import NoteList from './NoteList';
   useEffect(() => {
     window.localStorage.setItem('Notes', JSON.stringify(notes));
   }, [notes]);
-  /**
-   * 
-   * @param {} e event received from form submission. 
-   * prevents default from submission. 
-   * adds a new note to current state.
-   * udpates the UI to represent state. 
-   * 
-   */
-  const addNote = ( e ) => {
-    e.preventDefault();
-    notesDispatch({type: ADD_NOTE, note:{title, content: noteContent}});
-    // setNotes([...notes, { 
-    //   title,
-    //   content: noteContent
-    // }])
-    setTitle('');
-    setNoteContent('');
-  } 
+ 
   /**
    * removes a note from the list. updates component state. 
    * 
@@ -63,25 +45,10 @@ import NoteList from './NoteList';
   }
 
   return (
-    <div className='p-5 max-w-xl space-y-3'>
+    <div className='p-5 space-y-3 flex flex-col items-center'>
       <h1  className='text-3xl font-bold underline text-blue-600'>Notes</h1>
       <NoteList notes={notes} removeNote={removeNote} />
-      <p>Add Note</p>
-      <form onSubmit={addNote}>
-        <div className='flex-col flex max-w-xl space-y-3'>
-          <input type="text" value={ title } onChange={ (e) => { setTitle( e.target.value ) } } 
-            className='border-2 border-blue-300 rounded-xl p-2'
-          />
-          <textarea name="" id="" cols="30" rows="10" value={noteContent} onChange={(e) => {setNoteContent(e.target.value)}}
-            className='border-2 border-blue-300 rounded-xl p-2'
-          ></textarea>
-          <button className='
-            rounded-full border-2 p-2  border-blue-300'
-          >
-            add note
-          </button>
-        </div>
-      </form>
+      <AddNoteForm notesDispatch={notesDispatch} />
     </div>
   )
 }
