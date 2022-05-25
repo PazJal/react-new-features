@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer} from 'react';
 
-import { notesReducer, REMOVE_NOTE, POPULATE_NOTES } from '../reducers/notes';
+import { notesReducer,  POPULATE_NOTES } from '../reducers/notes';
 import NoteList from './NoteList';
 import AddNoteForm from './AddNoteForm';
 import NotesContext from '../context/notes-context';
@@ -39,7 +39,7 @@ import NotesContext from '../context/notes-context';
       <div className='p-5 space-y-3 flex flex-col items-center'>
         <h1  className='text-3xl font-bold underline text-blue-600'>Notes</h1>
         <NoteList/>
-        <AddNoteForm notesDispatch={notesDispatch} />
+        <AddNoteForm/>
       </div>
     </NotesContext.Provider>
     

@@ -1,10 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { ADD_NOTE } from "../reducers/notes";
 
+import NotesContext from "../context/notes-context";
 
-
-const AddNoteForm = ({notesDispatch}) => {
+const AddNoteForm = () => {
   
+  //Get dispatch from context
+  const {notesDispatch} = useContext(NotesContext);
+
   //Manage form state
   const [ title, setTitle ] = useState('');
   const [ noteContent, setNoteContent ] = useState('');
